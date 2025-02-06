@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="BooksApiTesting:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BooksApiTesting_jar</output-path>
+    <root id="archive" name="BooksApiTesting.jar">
+      <element id="module-output" name="BooksApiTesting" />
+    </root>
+  </artifact>
+</component>
