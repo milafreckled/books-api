@@ -1,14 +1,11 @@
 package org.liudmylamalomuzh.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.liudmylamalomuzh.dto.LoginUserDto;
 import org.liudmylamalomuzh.dto.RegisterUserDto;
-import org.liudmylamalomuzh.dto.UserIdResponseDto;
 import org.liudmylamalomuzh.entity.User;
 import org.liudmylamalomuzh.repository.UserRepository;
 import org.liudmylamalomuzh.service.AuthenticationService;
 import org.liudmylamalomuzh.service.JwtService;
-import org.liudmylamalomuzh.service.TokenBlacklistService;
 import org.liudmylamalomuzh.utils.LoginResponse;
 import org.springframework.expression.AccessException;
 import org.springframework.http.ResponseEntity;
