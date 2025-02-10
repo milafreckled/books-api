@@ -47,9 +47,9 @@ public class User implements UserDetails {
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(
-                    name = "id", referencedColumnName = "id"),
+                    name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
+                    name = "role_id", referencedColumnName = "role_id"))
     @NonNull
     private Collection<Role> roles;
 
