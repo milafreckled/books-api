@@ -23,6 +23,12 @@ public class JwtService {
     @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
 
+    private final TokenBlacklistService tokenBlacklistService;
+
+    private JwtService(TokenBlacklistService tokenBlacklistService){
+        this.tokenBlacklistService = tokenBlacklistService;
+    }
+
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -61,7 +67,7 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token) && !tokenBlacklistService.isBlacklisted(token);
     }
 
     private boolean isTokenExpired(String token) {
