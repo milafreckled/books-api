@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import java.util.Collection;
 
-@Table(name = "user_roles")
+@Table(name = "roles")
 @Entity
 @Getter
 @Setter
@@ -14,7 +14,7 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long roleId;
+    private Long id;
 
     private String name;
 

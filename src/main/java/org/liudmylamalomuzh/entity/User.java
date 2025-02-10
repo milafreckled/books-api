@@ -45,11 +45,11 @@ public class User implements UserDetails {
 
     @ManyToMany
     @JoinTable(
-            name = "user_roles",
+            name = "users_roles",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "role_id"))
+                    name = "role_id", referencedColumnName = "id"))
     @NonNull
     private Collection<Role> roles;
 
