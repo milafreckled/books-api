@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Table(name = "roles")
+@Table(name = "user_roles")
 @Entity
 @Getter
 @Setter
