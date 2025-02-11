@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Table(name = "privileges")
@@ -12,19 +13,23 @@ import java.util.Collection;
 @Setter
 public class Privilege {
 
+    @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Use IDENTITY for PostgreSQL
     private Long id;
 
+    @Setter
+    @Getter
     private String name;
 
     @ManyToMany(mappedBy = "privileges")
-    private Collection<Role> roles;
+    private Collection<Role> roles = new ArrayList<>();
 
     public Privilege(String name) {
+        this.name = name;
     }
 
     public Privilege() {
-
     }
+
 }
