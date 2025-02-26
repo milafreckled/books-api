@@ -1,6 +1,11 @@
 timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
 1739617806319,338,Register Request,200,,Books API authentication thread 1-1,text,true,,348,270,2,2,http://localhost:8080/auth/signup,338,0,11
 1739617806524,306,Register Request,200,,Books API authentication thread 1-2,text,true,,348,270,2,2,http://localhost:8080/auth/signup,306,0,1
+1739617806747,114,Login Request,500,,Books API authentication thread 1-1,text,false,No results for path: $['token'],341,242,2,2,http://localhost:8080/auth/login,113,0,0
+1739617806831,109,Login Request,500,,Books API authentication thread 1-2,text,false,No results for path: $['token'],341,230,1,1,http://localhost:8080/auth/login,109,0,0
 1739617807125,285,Register Request,200,,Books API authentication thread 1-3,text,true,,348,271,1,1,http://localhost:8080/auth/signup,285,0,2
+1739617807412,160,Login Request,200,,Books API authentication thread 1-3,text,true,,524,243,1,1,http://localhost:8080/auth/login,160,0,0
 1739617807725,257,Register Request,200,,Books API authentication thread 1-4,text,true,,348,271,1,1,http://localhost:8080/auth/signup,257,0,1
+1739617807984,151,Login Request,200,,Books API authentication thread 1-4,text,true,,524,243,1,1,http://localhost:8080/auth/login,151,0,0
 1739617808324,264,Register Request,200,,Books API authentication thread 1-5,text,true,,348,271,1,1,http://localhost:8080/auth/signup,264,0,1
+1739617808590,204,Login Request,200,,Books API authentication thread 1-5,text,true,,524,243,1,1,http://localhost:8080/auth/login,204,0,0
