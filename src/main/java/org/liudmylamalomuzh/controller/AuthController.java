@@ -2,6 +2,7 @@ package org.liudmylamalomuzh.controller;
 
 import org.liudmylamalomuzh.dto.LoginUserDto;
 import org.liudmylamalomuzh.dto.RegisterUserDto;
+import org.liudmylamalomuzh.dto.UserIdResponseDto;
 import org.liudmylamalomuzh.entity.User;
 import org.liudmylamalomuzh.repository.UserRepository;
 import org.liudmylamalomuzh.service.AuthenticationService;
