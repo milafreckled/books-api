@@ -3,6 +3,7 @@ package org.liudmylamalomuzh.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import org.liudmylamalomuzh.dto.LoginUserDto;
 import org.liudmylamalomuzh.dto.RegisterUserDto;
+import org.liudmylamalomuzh.dto.UserIdResponseDto;
 import org.liudmylamalomuzh.entity.User;
 import org.liudmylamalomuzh.repository.UserRepository;
 import org.liudmylamalomuzh.service.AuthenticationService;
@@ -33,9 +34,9 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> register(@RequestBody RegisterUserDto registerUserDto) throws AccessException {
+    public ResponseEntity<UserIdResponseDto> register(@RequestBody RegisterUserDto registerUserDto) throws AccessException {
         User registeredUser = authenticationService.signup(registerUserDto);
-        return ResponseEntity.ok("{\"id\": " + registeredUser.getId() + "}");
+        return ResponseEntity.ok(new UserIdResponseDto(registeredUser.getId()));
     }
 
     @PostMapping("/login")

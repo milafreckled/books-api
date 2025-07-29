@@ -40,3 +40,6 @@ build/
 *.nix
 flake.lock
 fly.toml
+
+.env
+result

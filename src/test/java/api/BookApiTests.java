@@ -1,12 +1,15 @@
 package api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.liudmylamalomuzh.entity.Book;
 import org.liudmylamalomuzh.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testng.annotations.Test;
@@ -19,13 +22,13 @@ import java.net.http.HttpResponse;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 import static org.springframework.http.converter.json.Jackson2ObjectMapperBuilder.json;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
@@ -35,6 +38,8 @@ public class BookApiTests {
     @Autowired
     private MockMvc mockMvc;
     private BookRepository bookRepository;
+    @Value("${admin.password}")
+    private String adminPwd;
 
     public static String generateBasicAuthHeader(String username, String password) {
         // Concatenate username and password with a colon
@@ -46,11 +51,29 @@ public class BookApiTests {
         // Combine "Basic " with the encoded credentials
         return "Basic " + encodedCredentials;
     }
-    private final String serviceUrl = "http://localhost:8080/api/books";
+    private final String serviceUrl = "http://localhost:8080";
     @Test
     void contextLoads() throws Exception {
         assertNotNull(mockMvc);
     }
+
+    @Test
+    void loginToAdmin() throws Exception {
+        Map<String, String> credentials = Map.of(
+                "email", "admin@test.com",
+                "password", adminPwd
+        );
+
+        String requestBody = new ObjectMapper().writeValueAsString(credentials);
+
+        mockMvc.perform(post(serviceUrl + "/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.token").isNotEmpty());
+    }
+
     @Test
     public void testAddingBooks() throws Exception {
         var values = new HashMap<String, String>(){{
@@ -59,7 +82,7 @@ public class BookApiTests {
         }};
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(values);
-        this.mockMvc.perform(post(requestBody, URI.create(serviceUrl)))
+        this.mockMvc.perform(post(requestBody, URI.create(serviceUrl+"/api/books")))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string("{\"id\": 3}"));
     }
