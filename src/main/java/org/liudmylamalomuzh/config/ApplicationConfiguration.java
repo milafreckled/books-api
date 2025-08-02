@@ -1,5 +1,6 @@
 package org.liudmylamalomuzh.config;
 
+import org.liudmylamalomuzh.entity.User;
 import org.liudmylamalomuzh.repository.UserRepository;
 import org.liudmylamalomuzh.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,6 +40,17 @@ public class ApplicationConfiguration {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
+@Bean
+        UserDetailsPasswordService userDetailsPasswordService() {
+            return (userDetails, newPassword) -> {
+                User user = userRepository.findByEmail(userDetails.getUsername())
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                user.setPassword(newPassword);
+                userRepository.save(user);
+                return user;
+            };
+        }
+
     @Bean
     public CustomUserDetailsService customUserDetailsService() {
         return new CustomUserDetailsService();
@@ -55,9 +68,9 @@ public class ApplicationConfiguration {
 
     @Bean
     AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService());
 
-        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setUserDetailsPasswordService(userDetailsPasswordService());
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
