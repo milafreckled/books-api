@@ -27,6 +27,7 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
+/jmeter-reports
 build/
 **/src/main/**/resources/application.properties
 !**/src/main/**/build/
