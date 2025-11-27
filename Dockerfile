@@ -6,7 +6,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Second stage: Run the JAR
-FROM openjdk:17-jdk
+FROM eclipse-temurin:17-jdk
 WORKDIR /
 COPY --from=build /app/target/*.jar BooksApiTesting.jar
 # Ensure environment variables are available
