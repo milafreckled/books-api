@@ -41,8 +41,8 @@ public class ApplicationConfiguration {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-@Bean
-        UserDetailsPasswordService userDetailsPasswordService() {
+    @Bean
+    UserDetailsPasswordService userDetailsPasswordService() {
             return (userDetails, newPassword) -> {
                 User user = userRepository.findByEmail(userDetails.getUsername())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -50,7 +50,7 @@ public class ApplicationConfiguration {
                 userRepository.save(user);
                 return user;
             };
-        }
+    }
 
     @Bean
     public CustomUserDetailsService customUserDetailsService() {
