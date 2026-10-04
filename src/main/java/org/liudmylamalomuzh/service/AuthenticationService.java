@@ -48,7 +48,7 @@ public class AuthenticationService {
                 .setFullName(input.getFullName())
                 .setEmail(input.getEmail())
                 .setPassword(passwordEncoder.encode(input.getPassword()))
-                .setRoles(List.of(roleRepository.findByName("ROLE_USER")));
+                .setRoles(List.of(roleRepository.findFirstByName("ROLE_USER")));
 
         return userRepository.save(user);
     }

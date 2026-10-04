@@ -48,7 +48,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
         createRoleIfNotFound("ROLE_USER", Collections.singletonList(readPrivilege));
 
-        Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+        Role adminRole = roleRepository.findFirstByName("ROLE_ADMIN");
         if (userRepository.findByEmail("admin@test.com").isEmpty()) {
             User user = new User();
             user.setFullName("admin");
@@ -82,7 +82,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     void createRoleIfNotFound(
             String name, Collection<Privilege> privileges) {
 
-        Role role = roleRepository.findByName(name);
+        Role role = roleRepository.findFirstByName(name);
         if (role == null) {
             role = new Role(name);
             role.setPrivileges(privileges);

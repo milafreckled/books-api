@@ -1,6 +1,5 @@
 package org.liudmylamalomuzh.service;
 
-import org.liudmylamalomuzh.dto.LoginUserDto;
 import org.liudmylamalomuzh.dto.RegisterUserDto;
 import org.liudmylamalomuzh.entity.Privilege;
 import org.liudmylamalomuzh.entity.Role;
@@ -9,7 +8,6 @@ import org.liudmylamalomuzh.repository.RoleRepository;
 import org.liudmylamalomuzh.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,7 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             return new org.springframework.security.core.userdetails.User(
                     " ", " ", true, true, true, true,
                     getAuthorities(Collections.singletonList(
-                            roleRepository.findByName("ROLE_USER"))));
+                            roleRepository.findFirstByName("ROLE_USER"))));
         }
 
         return new User(
